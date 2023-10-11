@@ -1,0 +1,133 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.task {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+
+}
+.subTasks {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+.task .header {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.subTasks .header {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.task input {
+    border-radius: 5px;
+    border: 1px solid #262d3a;
+    background-color: #262d3a;
+    color: white;
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+}
+.subTaskForm>form {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.subTaskForm input[type = 'text'] {
+    border-radius: 5px;
+    border: 1px solid #262d3a;
+    background-color: #262d3a;
+    color: white;
+    padding: 8px;
+    width: 350px;
+}
+.subTaskForm input[type = 'number'] {
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #262d3a;
+    background-color: #262d3a;
+    color: white;
+    padding: 8px;
+    width: 30px;
+}
+.subTaskForm input[type = 'submit'] {
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #805cf9;
+    background-color: #805cf9;
+    color: white;
+    padding: 8px;
+}
+.subTaskForm>form {
+    display: flex;
+    flex-direction: row;
+}
+.addButton {
+    margin-top: 10px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+.addButton form {
+    width: 100%;
+}
+.addButton input {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #2d1e5e;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    color: #805cf9;
+}
+.finishButtons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 90%;
+}
+.finishButtons input {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    border: 1px solid #2d1e5e;
+    color: #805cf9;
+    border-radius: 5px;
+    width: 250px;
+    margin: 19px;
+    padding: 10px;
+}
+.container {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.errorBlock {
+    margin-top: 500px;
+    position: fixed;
+    color: white;
+    font-family: sans-serif;
+}
+.error {
+    background-color: red;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}

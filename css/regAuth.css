@@ -1,0 +1,27 @@
+.regForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.textField {
+    border: 1px solid #262d3a;
+    border-radius: 3px;
+    padding: 4px;
+    font-size: 16px;
+    margin: 3px;
+}
+.regSubmit {
+    transition-duration: 300ms;
+    margin: 3px;
+    background-color: white;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid #262d3a;
+    padding: 3px;
+}
+.regSubmit:hover {
+    transition-duration: 300ms;
+    background-color: #6b7ea3;
+    color: white;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/regAuth.css">
+</head>
+<body>
+    {{errors}}
+    <div class = "container">
+        {{auth}}
+        {{task}}
+        <div class = 'subTasks'>
+            <div class = 'header'>Список Подзадач</div>
+        {{subtasks}}
+        </div>
+
+        <div class = 'addButton'>
+            <form action="/" method="post">
+                <input type="submit" value="Добавить подзадачу" name="addSubtask">
+            </form>
+        </div>
+
+        <div class = "finishButtons">
+            <form action="/" method="post">
+                <input type="submit" value="Сохранить в Localstorage" name="saveTask">
+            </form>
+            <form action="/" method="post">
+                <input type="submit" value="Новая задача" name="reset">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
