@@ -10,6 +10,14 @@
 <body>
     {{errors}}
     <div class = "container">
+        <div class = "regLoginButtons">
+            <form action="/" method="post">
+                <input type="submit" value="Регистрация" name="registration">
+            </form>
+            <form action="/" method="post">
+                <input type="submit" value="Авторизация" name="authorization">
+            </form>
+        </div>
         {{auth}}
         {{task}}
         <div class = 'subTasks'>

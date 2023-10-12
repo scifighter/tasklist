@@ -1,13 +1,11 @@
 <?php
 require_once('bdConnect.php');
 
-function reg() {
+function login() {
 
     // Передача данных полей из POST в переменные
-
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $passwordRepeat = $_POST['passwordRepeat'];
 
     // Обработка ошибок
     if (!$username) {
@@ -15,11 +13,6 @@ function reg() {
     }
     if (!$password) {
         $_SESSION['error'][] = 'Введите пароль';
-    }
-    if (!$passwordRepeat) {
-        $_SESSION['error'][] = 'Введите пароль повторно';
-    } elseif ($password !== $passwordRepeat) {
-        $_SESSION['error'][] = 'Пароли не совпадают';
     }
 
     for($i=0;$i<strlen($username);$i++) {
@@ -33,35 +26,39 @@ function reg() {
         } 
     }
 
-
     // Выполнение SQL, если нет ошибок в заполнении
     if (!isset($_SESSION['error'])) {
         global $pdo;
 
-        $stmt = $pdo->query('SELECT username FROM users');
+        // $salt = '$2a$12$'.substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(),mt_rand()))), 0, 22) . '$';
+        // $hashed_password = crypt($password, $salt);
+
+        //$sql = "SELECT id FROM users WHERE username = ? AND password = ?";
+        $sql = "SELECT * FROM users";
+        $stmt = $pdo->prepare($sql);
+        //$stmt->execute([$username, $hashed_password]);
+        $stmt->execute();
         $data = $stmt->fetchAll();
 
-        foreach ($data[0] as &$value) {
-            if ($value == $username) {
-                $_SESSION['error'][] = 'Пользователь с таким логином уже существует';
-                reg();
-            }
-        }
+        $salt = '$2a$12$'.substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(),mt_rand()))), 0, 22) . '$';
+        $hashed_password = crypt('privet', $salt);
+
+        echo "<pre>";
+        print_r($data);
+        echo $hashed_password;
+        echo "</pre>";
+
 
         // Изменить место хранения пароля на файлы конфигурации, по возможности зашифровать (нужно прочитать про это больше)
 
-        $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+        // $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
 
-        // Хеширование пароля с помощью salt и crypt
-        
-        $salt = '$2a$12$'.substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(),mt_rand()))), 0, 22) . '$';
-        $hashed_password = crypt($password, $salt);
+        // $stmt->bindParam(':username', $username);
+        // $stmt->bindParam(':password', $password);
+        // $stmt->execute();
 
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashed_password);
-        $stmt->execute();
+    }
 
-    } 
     // Сброс данных и вывод ошибок
     else {
         unset($_POST['username']);
