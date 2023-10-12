@@ -9,28 +9,34 @@ function templater($template, $data) {
 }
 
 function getAuthBlock() {
-    if (isset($_SESSION['reg'])) {
-        if ($_SESSION['reg'] = 'registration') {
-            return "
-            <form class = 'regForm' action = '/' method = 'post'>
-                Логин
-                <input class = 'textField' type = 'text' name = 'username'>
-                Пароль
-                <input class = 'textField' type = 'password' name = 'password'>
-                Пароль ещё раз
-                <input class = 'textField' type = 'password' name = 'passwordRepeat'>
-                <input class = 'regSubmit' type = 'submit' value = 'Зарегистрироваться' name = 'regButton'>
-            </form>
-            ";
-        } elseif ($_SESSION['reg'] = 'authorization') {
-
-        } else {
-            $_SESSION['reg'] = 'registration';
-        }
+    if ($_SESSION['registration'] == 'reg') {
+        return "
+        <form class = 'regForm' action = '/' method = 'post'>
+            Логин
+            <input class = 'textField' type = 'text' name = 'username'>
+            Пароль
+            <input class = 'textField' type = 'password' name = 'password'>
+            Пароль ещё раз
+            <input class = 'textField' type = 'password' name = 'passwordRepeat'>
+            <input class = 'regSubmit' type = 'submit' value = 'Зарегистрироваться' name = 'regButton'>
+        </form>
+        ";
+    } elseif ($_SESSION['registration'] == 'auth') {
+        return "
+        <form class = 'regForm' action = '/' method = 'post'>
+            Логин
+            <input class = 'textField' type = 'text' name = 'username'>
+            Пароль
+            <input class = 'textField' type = 'password' name = 'password'>
+            <input class = 'regSubmit' type = 'submit' value = 'Войти' name = 'loginButton'>
+        </form>
+        ";
     } else {
-        $_SESSION['reg'] = 'registration';
+        $_SESSION['registration'] = 'reg';
+        getAuthBlock();
     }
 }
+
 function getSubTaskTemplate($subTask) {
     $id = $subTask['id'];
     $name = $subTask['name'];
