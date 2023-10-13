@@ -33,32 +33,30 @@ function reg() {
         } 
     }
 
+    global $pdo;
+
+    $sql = 'SELECT username FROM users WHERE username = ?';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$username]);
+    $data = $stmt->fetchAll();
+
+    if ($data[0]['username'] == $username) {
+        $_SESSION['error'][] = 'Пользователь с таким логином уже существует';
+    }
 
     // Выполнение SQL, если нет ошибок в заполнении
     if (!isset($_SESSION['error'])) {
-        global $pdo;
-
-        $stmt = $pdo->query('SELECT username FROM users');
-        $data = $stmt->fetchAll();
-
-        foreach ($data[0] as &$value) {
-            if ($value == $username) {
-                $_SESSION['error'][] = 'Пользователь с таким логином уже существует';
-                reg();
-            }
+        
+        // Добавление глобальной соли и хэширование пароля
+        $str = file_get_contents("auth\salt.txt");
+        $password = $str.$password.$str;
+        for ($i = 1; $i <= 256; $i++) {
+            $password = hash('sha512', $password);
         }
 
-        // Изменить место хранения пароля на файлы конфигурации, по возможности зашифровать (нужно прочитать про это больше)
-
         $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
-
-        // Хеширование пароля с помощью salt и crypt
-        
-        $salt = '$2a$12$'.substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(),mt_rand()))), 0, 22) . '$';
-        $hashed_password = crypt($password, $salt);
-
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':password', $password);
         $stmt->execute();
 
     } 

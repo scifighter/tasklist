@@ -28,35 +28,36 @@ function login() {
 
     // Выполнение SQL, если нет ошибок в заполнении
     if (!isset($_SESSION['error'])) {
+
+
         global $pdo;
 
-        // $salt = '$2a$12$'.substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(),mt_rand()))), 0, 22) . '$';
-        // $hashed_password = crypt($password, $salt);
+        // Добавление глобальной соли и хэширование пароля
+        $str = file_get_contents("auth\salt.txt");
+        $password = $str.$password.$str;
+        for ($i = 1; $i <= 256; $i++) {
+            $password = hash('sha512', $password);
+        }
 
-        //$sql = "SELECT id FROM users WHERE username = ? AND password = ?";
-        $sql = "SELECT * FROM users";
+        // Найти запись с совпадающим именем и паролем
+
+        $sql = "SELECT id FROM users WHERE username = ? AND password = ?";
         $stmt = $pdo->prepare($sql);
-        //$stmt->execute([$username, $hashed_password]);
-        $stmt->execute();
+        $stmt->execute([$username, $password]);
         $data = $stmt->fetchAll();
 
-        $salt = '$2a$12$'.substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(),mt_rand()))), 0, 22) . '$';
-        $hashed_password = crypt('privet', $salt);
+        if (isset($data[0])) {
 
-        echo "<pre>";
-        print_r($data);
-        echo $hashed_password;
-        echo "</pre>";
+            // Установить текущего пользователя на найденный id
+            $_SESSION['user']['id'] = $data[0]['id'];
 
-
-        // Изменить место хранения пароля на файлы конфигурации, по возможности зашифровать (нужно прочитать про это больше)
-
-        // $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
-
-        // $stmt->bindParam(':username', $username);
-        // $stmt->bindParam(':password', $password);
-        // $stmt->execute();
-
+        } else {
+            $_SESSION['error'][] = 'Неправильный логин или пароль';
+            unset($_POST['username']);
+            unset($_POST['password']);
+            unset($_POST['passwordRepeat']);
+            return;
+        }
     }
 
     // Сброс данных и вывод ошибок
