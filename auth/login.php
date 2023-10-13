@@ -1,7 +1,7 @@
 <?php
 require_once('bdConnect.php');
 
-function login() {
+function tryLogin() {
 
     // Передача данных полей из POST в переменные
     $username = $_POST['username'];
@@ -29,7 +29,6 @@ function login() {
     // Выполнение SQL, если нет ошибок в заполнении
     if (!isset($_SESSION['error'])) {
 
-
         global $pdo;
 
         // Добавление глобальной соли и хэширование пароля
@@ -52,11 +51,12 @@ function login() {
             $_SESSION['user']['id'] = $data[0]['id'];
 
         } else {
-            $_SESSION['error'][] = 'Неправильный логин или пароль';
-            unset($_POST['username']);
-            unset($_POST['password']);
-            unset($_POST['passwordRepeat']);
-            return;
+
+            $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':password', $password);
+            $stmt->execute();
+            tryLogin();
         }
     }
 

@@ -10,16 +10,20 @@
 <body>
     {{errors}}
     <div class = "container">
-        <div class = "regLoginButtons">
-            <form action="/" method="post">
-                <input type="submit" value="Регистрация" name="registration">
+        <form class = 'regForm' action = '/' method = 'post'>
+            Логин
+            <input class = 'textField' type = 'text' name = 'username'>
+            Пароль
+            <input class = 'textField' type = 'password' name = 'password'>
+            <input class = 'regSubmit' type = 'submit' value = 'Войти' name = 'loginButton'>
+        </form>
+        <div class = 'task'>
+            <div class = 'header'>Название задачи</div>
+            <form action = '/'' method = 'post' name = 'task' onchange=document.forms['task'].submit();>
+                <input type = 'text' name = 'task' value = '{{task}}'>
             </form>
-            <form action="/" method="post">
-                <input type="submit" value="Авторизация" name="authorization">
-            </form>
+            <br>
         </div>
-        {{auth}}
-        {{task}}
         <div class = 'subTasks'>
             <div class = 'header'>Список Подзадач</div>
         {{subtasks}}

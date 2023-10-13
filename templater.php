@@ -8,35 +8,6 @@ function templater($template, $data) {
  return strtr($template, $processedData);
 }
 
-function getAuthBlock() {
-    if ($_SESSION['registration'] == 'reg') {
-        return "
-        <form class = 'regForm' action = '/' method = 'post'>
-            Логин
-            <input class = 'textField' type = 'text' name = 'username'>
-            Пароль
-            <input class = 'textField' type = 'password' name = 'password'>
-            Пароль ещё раз
-            <input class = 'textField' type = 'password' name = 'passwordRepeat'>
-            <input class = 'regSubmit' type = 'submit' value = 'Зарегистрироваться' name = 'regButton'>
-        </form>
-        ";
-    } elseif ($_SESSION['registration'] == 'auth') {
-        return "
-        <form class = 'regForm' action = '/' method = 'post'>
-            Логин
-            <input class = 'textField' type = 'text' name = 'username'>
-            Пароль
-            <input class = 'textField' type = 'password' name = 'password'>
-            <input class = 'regSubmit' type = 'submit' value = 'Войти' name = 'loginButton'>
-        </form>
-        ";
-    } else {
-        $_SESSION['registration'] = 'reg';
-        getAuthBlock();
-    }
-}
-
 function getSubTaskTemplate($subTask) {
     $id = $subTask['id'];
     $name = $subTask['name'];
@@ -58,20 +29,11 @@ function getSubTaskTemplate($subTask) {
 }
 
 function getTask() {
+    $task = "";
     if(isset($_SESSION['task'])) {
         $task = $_SESSION['task'];
-    } else {
-        $task = "";
+        return $task;
     }
-    return "
-    <div class = 'task'>
-        <div class = 'header'>Название задачи</div>
-        <form action = '/'' method = 'post' name = 'task' onchange=document.forms['task'].submit();>
-            <input type = 'text' name = 'task' value = '".$task."'>
-        </form>
-        <br>
-    </div>
-    ";
 }
 function getErrors() {
     if (isset($_SESSION['error'])) {

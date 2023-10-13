@@ -3,7 +3,6 @@ require_once('bdConnect.php');
 require_once('store.php');
 require_once('templater.php');
 require_once('file.php');
-require_once('auth/reg.php');
 require_once('auth/login.php');
 
 $templateFile = 'view.html';
@@ -40,30 +39,16 @@ if($_SESSION['subtasks'] == NULL || !$_SESSION['subtasks']){
     addSubTask();
 }
 
-if (isset($_POST['registration'])) {
-    $_SESSION['registration'] = 'reg';
-} elseif (isset($_POST['authorization'])) {
-    $_SESSION['registration'] = 'auth';
-} else {
-    $_SESSION['registration'] = 'reg';
-}
-
-if(isset($_POST['regButton'])){
-    reg();
-}
-
 if(isset($_POST['loginButton'])){
-    login();
+    tryLogin();
 }
 
 $html = file_get_contents($templateFile, true);
 echo (templater($html, [
     'subtasks' => getSubTasks(),
     'task' => getTask(),
-    'auth' => getAuthBlock(), // Возвращает блок полей для логина/регистрации в зависимости от $_SESSION, для смены по нажатию кнопки
     'errors' => getErrors(),
 ]));
-// print_r($_POST);
 // echo "<pre>";
 // print_r($_SESSION);
 // echo "</pre>";
