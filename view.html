@@ -10,39 +10,46 @@
 <body>
     {{errors}}
     <div class = "container">
-        <form class = 'regForm' action = '/' method = 'post'>
-            Логин
-            <input class = 'textField' type = 'text' name = 'username'>
-            Пароль
-            <input class = 'textField' type = 'password' name = 'password'>
-            <input class = 'regSubmit' type = 'submit' value = 'Войти' name = 'loginButton'>
-        </form>
-        <div class = 'task'>
-            <div class = 'header'>Название задачи</div>
+        <h3>{{auth}}</h3>
+
+        <div class = 'taskField'>
+            <div class = 'header'>Описание задачи</div>
             <form action = '/'' method = 'post' name = 'task' onchange=document.forms['task'].submit();>
                 <input type = 'text' name = 'task' value = '{{task}}'>
             </form>
             <br>
         </div>
-        <div class = 'subTasks'>
-            <div class = 'header'>Список Подзадач</div>
-        {{subtasks}}
+
+        <div class = 'finishButtons'>
+            <form action = '/' method = 'post'>
+                <input type = 'submit' value = 'Сохранить' name = 'saveTask'>
+            </form>
+            <form action = '/'' method = 'post'>
+                <input type = 'submit' value = 'Новая задача' name = 'reset'>
+            </form>
+            <form action = '/' method = 'post'>
+                <input type = 'submit' value = 'Выйти' name = 'logout'>
+            </form>
+        </div>
+        <!-- Вёрстка вывода блока задач, соединить с php-->
+        <!-- Если пользователь есть, сделать запрос в Tasks и вывести для каждой задачи с user_id = $_SESSION['user']['id'] описание и статус -->
+        <div class = 'tasks'>
+
+            <div class = 'task'>
+
+                <div class = 'taskDescription'>
+                    <div class = 'taskText'>Описание задачи</div>
+                    <img class = 'status' src = "images/redcircle.png"><!--REDCIRCLE-->
+                </div>
+
+                <div class = 'taskControls'>
+                    <input type = 'submit' value =  'READY'><!--UNREADY-->
+                    <input type = 'submit' value =  'DELETE'><!--кнопка удаления задачи-->
+                </div>
+            </div>
+
         </div>
 
-        <div class = 'addButton'>
-            <form action="/" method="post">
-                <input type="submit" value="Добавить подзадачу" name="addSubtask">
-            </form>
-        </div>
-
-        <div class = "finishButtons">
-            <form action="/" method="post">
-                <input type="submit" value="Сохранить в Localstorage" name="saveTask">
-            </form>
-            <form action="/" method="post">
-                <input type="submit" value="Новая задача" name="reset">
-            </form>
-        </div>
     </div>
 </body>
 </html>

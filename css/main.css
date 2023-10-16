@@ -9,29 +9,20 @@ body {
     justify-content: center;
 }
 
-.task {
+.taskField {
     width: 90%;
     display: flex;
     flex-direction: column;
 
 }
-.subTasks {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-}
-.task .header {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-.subTasks .header {
+
+.taskField .header {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 10px;
     margin-bottom: 10px;
 }
 
-.task input {
+.taskField input {
     border-radius: 5px;
     border: 1px solid #262d3a;
     background-color: #262d3a;
@@ -39,43 +30,6 @@ body {
     width: 95%;
     padding: 10px;
     font-size: 16px;
-}
-.subTaskForm>form {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    width: 100%;
-}
-.subTaskForm input[type = 'text'] {
-    border-radius: 5px;
-    border: 1px solid #262d3a;
-    background-color: #262d3a;
-    color: white;
-    padding: 8px;
-    width: 350px;
-}
-.subTaskForm input[type = 'number'] {
-    text-align: center;
-    border-radius: 5px;
-    border: 1px solid #262d3a;
-    background-color: #262d3a;
-    color: white;
-    padding: 8px;
-    width: 30px;
-}
-.subTaskForm input[type = 'submit'] {
-    text-align: center;
-    border-radius: 5px;
-    border: 1px solid #805cf9;
-    background-color: #805cf9;
-    color: white;
-    padding: 8px;
-}
-.subTaskForm>form {
-    display: flex;
-    flex-direction: row;
 }
 .addButton {
     margin-top: 10px;
@@ -103,10 +57,22 @@ body {
     width: 90%;
 }
 .finishButtons input {
+    transition-duration: 200ms;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: white;
     border: 1px solid #2d1e5e;
     color: #805cf9;
+    border-radius: 5px;
+    width: 250px;
+    margin: 19px;
+    padding: 10px;
+}
+.finishButtons input:hover {
+    transition-duration: 200ms;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2d1e5e;
+    border: 1px solid white;
+    color: white;
     border-radius: 5px;
     width: 250px;
     margin: 19px;
@@ -130,4 +96,43 @@ body {
     border-radius: 5px;
     padding: 10px;
     text-align: center;
+}
+.tasks {
+    display: flex;
+}
+.task {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid #2d1e5e;
+    padding: 20px;
+}
+.status {
+    width: 30px;
+    height: 30px;
+}
+.taskDescription {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+.taskText {
+    padding: 30px;
+}
+.taskControls {
+    display: flex;
+    justify-content: space-between;
+}
+.taskControls input {
+    transition-duration: 200ms;
+    background-color: white;
+    border: 1px solid #2d1e5e;
+    border-radius: 3px;
+}
+.taskControls input:hover {
+    transition-duration: 200ms;
+    background-color: #2d1e5e;
+    border: 1px solid white;
+    color: white;
+    border-radius: 3px;
 }

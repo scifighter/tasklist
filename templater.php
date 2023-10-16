@@ -8,26 +8,6 @@ function templater($template, $data) {
  return strtr($template, $processedData);
 }
 
-function getSubTaskTemplate($subTask) {
-    $id = $subTask['id'];
-    $name = $subTask['name'];
-    $hours = "subTaskHours".$subTask['hours'];
-    return "
-    <div class = 'subTaskForm'>
-    <form action = '/' method='post' name = '".$id."' onchange=document.forms['".$id."'].submit();>
-
-        <input value = '".$subTask['name']."' type='text' name='subTaskName'>
-
-        <input value = '".$subTask['hours']."' type='number' name='subTaskHours'>
-        
-        <input type = 'submit' name='subTaskDelete' value = 'Remove'>
-
-        <input type='hidden' name='subTaskId' value='".$id."'>
-    </form>
-    </div>
-    ";
-}
-
 function getTask() {
     $task = "";
     if(isset($_SESSION['task'])) {
@@ -35,6 +15,7 @@ function getTask() {
         return $task;
     }
 }
+
 function getErrors() {
     if (isset($_SESSION['error'])) {
         $output;
@@ -48,5 +29,13 @@ function getErrors() {
         $output = "<div class = 'errorBlock'>".$output."</div>";
         unset($_SESSION['error']);
         return $output;
+    }
+}
+
+function checkAuth() {
+    if (!isset($_SESSION['user']['id'])) {
+        return file_get_contents('auth.html');
+    } else {
+        return $_SESSION['user']['login'];
     }
 }
