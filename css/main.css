@@ -99,6 +99,7 @@ body {
 }
 .tasks {
     display: flex;
+    flex-direction: column;
 }
 .task {
     display: flex;
@@ -106,6 +107,7 @@ body {
     border-radius: 10px;
     border: 1px solid #2d1e5e;
     padding: 20px;
+    margin: 20px;
 }
 .status {
     width: 30px;
@@ -123,13 +125,13 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.taskControls input {
+.taskControls form input {
     transition-duration: 200ms;
     background-color: white;
     border: 1px solid #2d1e5e;
     border-radius: 3px;
 }
-.taskControls input:hover {
+.taskControls form input:hover {
     transition-duration: 200ms;
     background-color: #2d1e5e;
     border: 1px solid white;

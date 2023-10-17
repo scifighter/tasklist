@@ -2,7 +2,7 @@
 require_once('bdConnect.php');
 require_once('store.php');
 require_once('templater.php');
-require_once('saveTask.php');
+require_once('task.php');
 require_once('auth/login.php');
 
 $templateFile = 'view.html';
@@ -19,6 +19,13 @@ if (isset($_POST['task'])) {
     addTask($_POST['task']);
 }
 
+if (isset($_POST['taskDelete'])) {
+   taskDelete($_POST['taskId']); 
+}
+
+if (isset($_POST['taskStatusChange'])) {
+    taskStatusChange($_POST['taskId'], $_POST['taskStatus']);
+}
 
 if(isset($_POST['loginButton'])){
     tryLogin();
@@ -31,8 +38,10 @@ echo (templater($html, [
     'task' => getTask(),
     'errors' => getErrors(),
     'auth' => checkAuth(),
+    'tasklist' => getTasklist(),
 ]));
-// echo "<pre>";
-// print_r($_SESSION);
-// print_r($_POST);
-// echo "</pre>";
+getTasklist();
+echo "<pre>";
+print_r($_SESSION);
+print_r($_POST);
+echo "</pre>";

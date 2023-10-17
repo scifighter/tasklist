@@ -15,10 +15,10 @@ function tryLogin() {
         $_SESSION['error'][] = 'Введите пароль';
     }
 
-    if (strpos($logins, ' ') == false) {
+    if (str_contains($login, ' ')) {
         $_SESSION['error'][] = 'Логин не должен содержать пробелов';
     } 
-    if (strpos($password, ' ') == false)  {
+    if (str_contains($password, ' '))  {
         $_SESSION['error'][] = 'Пароль не должен содержать пробелов';
     } 
 

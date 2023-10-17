@@ -34,20 +34,7 @@
         <!-- Вёрстка вывода блока задач, соединить с php-->
         <!-- Если пользователь есть, сделать запрос в Tasks и вывести для каждой задачи с user_id = $_SESSION['user']['id'] описание и статус -->
         <div class = 'tasks'>
-
-            <div class = 'task'>
-
-                <div class = 'taskDescription'>
-                    <div class = 'taskText'>Описание задачи</div>
-                    <img class = 'status' src = "images/redcircle.png"><!--REDCIRCLE-->
-                </div>
-
-                <div class = 'taskControls'>
-                    <input type = 'submit' value =  'READY'><!--UNREADY-->
-                    <input type = 'submit' value =  'DELETE'><!--кнопка удаления задачи-->
-                </div>
-            </div>
-
+            {{tasklist}}
         </div>
 
     </div>
