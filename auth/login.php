@@ -15,16 +15,12 @@ function tryLogin() {
         $_SESSION['error'][] = 'Введите пароль';
     }
 
-    for($i=0;$i<strlen($login);$i++) {
-        if($username[$i]== " ") {
-            $_SESSION['error'][] = 'Логин не должен содержать пробелов';
-        } 
-    }
-    for($i=0;$i<strlen($password);$i++) {
-        if($password[$i]== " ") {
-            $_SESSION['error'][] = 'Пароль не должен содержать пробелов';
-        } 
-    }
+    if(str_contains($login, ' ')) {
+        $_SESSION['error'][] = 'Логин не должен содержать пробелов';
+    } 
+    if(str_contains($password, ' ')) {
+        $_SESSION['error'][] = 'Пароль не должен содержать пробелов';
+    } 
 
     // Выполнение SQL, если нет ошибок в заполнении
     if (!isset($_SESSION['error'])) {
