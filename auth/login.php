@@ -15,10 +15,10 @@ function tryLogin() {
         $_SESSION['error'][] = 'Введите пароль';
     }
 
-    if(str_contains($login, ' ')) {
+    if (strpos($logins, ' ') == false) {
         $_SESSION['error'][] = 'Логин не должен содержать пробелов';
     } 
-    if(str_contains($password, ' ')) {
+    if (strpos($password, ' ') == false)  {
         $_SESSION['error'][] = 'Пароль не должен содержать пробелов';
     } 
 
@@ -28,7 +28,8 @@ function tryLogin() {
         global $pdo;
 
         // Добавление глобальной соли и хэширование пароля
-        $str = file_get_contents("auth\salt.txt");
+
+        $str = 'FZM_nODwiDryORchxwXeVScyYiF7wSnAJpNAEXgSwgid1LrakiUMiMr0in0GNdN2FKL5xUizotqNTZNGUlyTGXKxY9EvhDUaf0yX0MuDazqYLQBBpLIOCToOcyJTobTCwuHVRTJUidsV.aOsYaX.dPRWOrgE9MsRLIFZeeWJ0SwdT5wnAmwiAuy09HXljnBYmtMQVeLhDhqmdxCB_LKF.lXjyqAlGIwbb14aI6fNtrftM6fqOeZjRTgloOSfs4G';
         $password = $str.$password.$str;
         for ($i = 1; $i <= 256; $i++) {
             $password = hash('sha512', $password);
