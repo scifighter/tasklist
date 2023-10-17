@@ -40,8 +40,7 @@ echo (templater($html, [
     'auth' => checkAuth(),
     'tasklist' => getTasklist(),
 ]));
-getTasklist();
-echo "<pre>";
-print_r($_SESSION);
-print_r($_POST);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_SESSION);
+// print_r($_POST);
+// echo "</pre>";
