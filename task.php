@@ -4,12 +4,16 @@ require_once('bdConnect.php');
 
 function bdSave($task) {
     
-    $userId = $_SESSION['user']['id'];
     $date = date('Y-m-d');
     $status = 0;
     
     if (!isset($task)) {
         $_SESSION['error'][] = 'Введите описание задачи';
+    }
+    if (!isset($_SESSION['user'])) {
+        $_SESSION['error'][] = 'Для сохранения задачи нужно зарегистрироваться или войти';
+    } else {
+        $userId = $_SESSION['user']['id'];
     }
 
     if (!isset($_SESSION['error'])) {
